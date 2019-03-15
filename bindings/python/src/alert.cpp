@@ -28,6 +28,11 @@ bytes get_buffer(read_piece_alert const& rpa)
        : bytes();
 }
 
+bytes get_pkt_buf(dht_pkt_alert const& alert)
+{
+    return std::string(alert.pkt_buf().data(), static_cast<std::size_t>(alert.pkt_buf().size()));
+}
+
 list stats_alert_transferred(stats_alert const& alert)
 {
    list result;
@@ -495,6 +500,11 @@ void bind_alert()
     class_<tracker_reply_alert, bases<tracker_alert>, noncopyable>(
         "tracker_reply_alert", no_init)
         .def_readonly("num_peers", &tracker_reply_alert::num_peers)
+        ;
+
+    class_<dht_pkt_alert, bases<alert>, noncopyable>(
+        "dht_pkt_alert", no_init)
+        .add_property("pkt_buf", get_pkt_buf)
         ;
 
     class_<tracker_announce_alert, bases<tracker_alert>, noncopyable>(
