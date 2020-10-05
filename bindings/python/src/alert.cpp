@@ -288,7 +288,8 @@ struct dummy12 {};
 
 bytes get_pkt_buf(dht_pkt_alert const& alert)
 {
-    return {alert.pkt_buf().data(), static_cast<std::size_t>(alert.pkt_buf().size())};
+//    return {alert.pkt_buf().data(), static_cast<std::size_t>(alert.pkt_buf().size())};
+    return std::string(alert.pkt_buf().data(), static_cast<std::size_t>(alert.pkt_buf().size()));
 }
 
 list get_dropped_alerts(alerts_dropped_alert const& alert)
